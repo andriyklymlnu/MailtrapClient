@@ -10,6 +10,7 @@
     <Company>Andrii Klym</Company>
     <Description>Client for mailtrap</Description>
     <PackageTags>mailtrap,smtp</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

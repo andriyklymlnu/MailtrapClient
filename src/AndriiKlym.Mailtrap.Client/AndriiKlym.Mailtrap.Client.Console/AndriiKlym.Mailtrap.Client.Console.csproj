@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AndriiKlym.Mailtrap.Client\AndriiKlym.Mailtrap.Client.csproj" />
+    <PackageReference Include="AndriiKlym.Mailtrap.Client" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
