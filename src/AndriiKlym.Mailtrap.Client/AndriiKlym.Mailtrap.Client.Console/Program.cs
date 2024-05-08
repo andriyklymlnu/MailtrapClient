@@ -2,7 +2,7 @@
 using AndriiKlym.Mailtrap.Client.Models;
 using System.Net.Mail;
 
-using IMailtrapClient client = new MailtrapClient("28284b8c6ed2fb", "a697ee4075da06");
+using IMailtrapClient client = new MailtrapClient("", "");
 
 var message = new MailtrapMessage(new MailAddress("from@example.com"), new MailAddress("to@example.com"),
     "Test subject", "My first email", "<b>Message</b>");

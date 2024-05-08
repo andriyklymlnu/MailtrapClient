@@ -5,6 +5,7 @@ using System.Net.Mail;
 
 namespace AndriiKlym.Mailtrap.Client
 {
+    // Logging could be implemented as event system, just idea if using instead if ILogger
     /// <summary>
     /// Mailtrap client class. Initializes instance with available methods.
     /// </summary>
