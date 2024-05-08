@@ -1,4 +1,5 @@
 ﻿using AndriiKlym.Mailtrap.Client.Models;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Mail;
 
@@ -26,21 +27,27 @@ namespace AndriiKlym.Mailtrap.Client
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
         /// <summary>
+        /// The logger
+        /// </summary>
+        private readonly ILogger<MailtrapClient>? _logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MailtrapClient" /> class.
         /// </summary>
         /// <param name="username">Mailtrap username.</param>
         /// <param name="password">Mailtrap password.</param>
         /// <param name="host">Optional mailtrap host. Skip this param to use default value</param>
         /// <param name="port">Optional mailtrap port. Skip this param to use default value</param>
-        /// <param name="_disposeSmtpClient">if set to <c>true</c> [dispose SMTP client]. Use false to create singleton MailtrapClient</param>
+        /// <param name="logger">The logger.</param>
         public MailtrapClient(string username, string password, string host = "sandbox.smtp.mailtrap.io", int port = 2525,
-            bool _disposeSmtpClient = true)
+            ILogger<MailtrapClient>? logger = null)
         {
             _client = new SmtpClient(host, port)
             {
                 Credentials = new NetworkCredential(username, password),
                 EnableSsl = true
             };
+            _logger = logger;
         }
 
         /// <summary>
@@ -76,6 +83,7 @@ namespace AndriiKlym.Mailtrap.Client
             await _lock.WaitAsync();
             try
             {
+                _logger?.LogInformation("[MailtrapClient] Sending mail message");
                 await _client.SendMailAsync(mailMessage);
             }
             finally
@@ -92,6 +100,8 @@ namespace AndriiKlym.Mailtrap.Client
         /// <exception cref="ArgumentNullException">message</exception>
         private void ValidateParams(MailtrapMessage message)
         {
+            _logger?.LogInformation("[MailtrapClient] Validating params");
+
             if (_client is null) throw new InvalidOperationException("SMTP client is not initialized.");
             if (message is null) throw new ArgumentNullException(nameof(message));
         }
@@ -101,8 +111,10 @@ namespace AndriiKlym.Mailtrap.Client
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>The prepared <see cref="MailMessage"/>.</returns>
-        private static MailMessage PrepareMailMessage(MailtrapMessage message)
+        private MailMessage PrepareMailMessage(MailtrapMessage message)
         {
+            _logger?.LogInformation("[MailtrapClient] Preparing mail message");
+
             var mailMessage = new MailMessage(message.From, message.To);
 
             mailMessage.Subject = message.Subject;
@@ -111,6 +123,10 @@ namespace AndriiKlym.Mailtrap.Client
 
             if (message.Attachments?.Any() ?? false)
                 message.Attachments.ForEach(mailMessage.Attachments.Add);
+
+            _logger?.LogInformation($"[MailtrapClient] Is body type html: {mailMessage.IsBodyHtml}");
+            _logger?.LogInformation($"[MailtrapClient] Added {mailMessage.Attachments.Count} attachments");
+
             return mailMessage;
         }
     }
