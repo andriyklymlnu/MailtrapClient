@@ -116,5 +116,44 @@ namespace AndriiKlym.Mailtrap.Client.Tests
             // Act and Assert
             Assert.Throws<ArgumentNullException>(() => message.From = null);
         }
+
+        [Fact]
+        /// <summary>
+        /// Tests that the Subject property can be set to a non-null value and retrieved correctly.
+        /// </summary>
+        public void SubjectProperty_SetNonNullValue_WorksCorrectly()
+        {
+            // Arrange
+            var initialFrom = new MailAddress("from@example.com");
+            var initialTo = new MailAddress("to@example.com");
+            var message = new MailtrapMessage(initialFrom, initialTo);
+            var newSubject = "New Subject";
+
+            // Act
+            message.Subject = newSubject;
+            var retrievedSubject = message.Subject;
+
+            // Assert
+            Assert.Equal(newSubject, retrievedSubject);
+        }
+
+        [Fact]
+        /// <summary>
+        /// Tests that the Subject property can be set to a null value and retrieved empty string.
+        /// </summary>
+        public void SubjectProperty_SetNullValue_WorksCorrectly()
+        {
+            // Arrange
+            var initialFrom = new MailAddress("from@example.com");
+            var initialTo = new MailAddress("to@example.com");
+            var message = new MailtrapMessage(initialFrom, initialTo);
+
+            // Act
+            message.Subject = null;
+            var retrievedSubject = message.Subject;
+
+            // Assert
+            Assert.Equal(string.Empty, retrievedSubject);
+        }
     }
 }

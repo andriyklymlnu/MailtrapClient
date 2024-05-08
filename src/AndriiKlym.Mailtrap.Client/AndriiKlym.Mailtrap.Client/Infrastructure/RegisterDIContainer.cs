@@ -14,7 +14,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddSingletonMailtrapClient(this IServiceCollection services, 
             string username, string password)
         {
-            services.AddSingleton(provider => new MailtrapClient(username, password));
+            services.AddSingleton<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password));
             return services;
         }
 
@@ -30,7 +30,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddSingletonMailtrapClient(this IServiceCollection services,
             string username, string password, string host, int port)
         {
-            services.AddSingleton(provider => new MailtrapClient(username, password, host, port));
+            services.AddSingleton<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password, host, port));
             return services;
         }
 
@@ -44,7 +44,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddTransientMailtrapClient(this IServiceCollection services,
             string username, string password)
         {
-            services.AddTransient(provider => new MailtrapClient(username, password));
+            services.AddTransient<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password));
             return services;
         }
 
@@ -60,7 +60,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddTransientMailtrapClient(this IServiceCollection services,
             string username, string password, string host, int port)
         {
-            services.AddTransient(provider => new MailtrapClient(username, password, host, port));
+            services.AddTransient<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password, host, port));
             return services;
         }
 
@@ -74,7 +74,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddScopedMailtrapClient(this IServiceCollection services,
             string username, string password)
         {
-            services.AddScoped(provider => new MailtrapClient(username, password));
+            services.AddScoped<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password));
             return services;
         }
 
@@ -90,7 +90,7 @@ namespace AndriiKlym.Mailtrap.Client.Infrastructure
         public static IServiceCollection AddScopedMailtrapClient(this IServiceCollection services,
             string username, string password, string host, int port)
         {
-            services.AddScoped(provider => new MailtrapClient(username, password, host, port));
+            services.AddScoped<IMailtrapClient, MailtrapClient>(provider => new MailtrapClient(username, password, host, port));
             return services;
         }
     }

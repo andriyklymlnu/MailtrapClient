@@ -8,7 +8,7 @@ namespace AndriiKlym.Mailtrap.Client
     /// Mailtrap client class. Initializes instance with available methods.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public class MailtrapClient: IDisposable
+    public class MailtrapClient: IMailtrapClient
     {
         /// <summary>
         /// The SMTP client
