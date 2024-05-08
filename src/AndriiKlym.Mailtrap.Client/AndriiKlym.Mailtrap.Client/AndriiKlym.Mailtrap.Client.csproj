@@ -5,6 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <Title>AndriiKlym.Mailtrap.Client</Title>
+    <Authors>Andrii Klym</Authors>
+    <Company>Andrii Klym</Company>
+    <Description>Client for mailtrap</Description>
+    <PackageTags>mailtrap,smtp</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
